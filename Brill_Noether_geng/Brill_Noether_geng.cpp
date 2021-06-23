@@ -1,19 +1,19 @@
-// This program combines nauty's graph generator "geng" with my own program test_Brill_Noether_bound.cpp.
+// This program combines nauty's graph generator "geng" with my own divisor code base.
 // Given an integer n, it will generate all simple graphs on n vertices and test whether their gonality
 // satisfies the Brill–Noether bound.
 // 
-// Technically, not all graphs on n vertices are generated, but only the graphs g with the following properties:
-//     * g is connected;
-//     * g has minimum degree 2 (in other words, no leaves);
+// Technically, not all graphs on n vertices are generated, but only the graphs G with the following properties:
+//     * G is connected;
+//     * G has minimum degree 2 (in other words, no leaves);
 //     * the number of edges is such that the Brill–Noether bound is at most n - 3.
 // 
 // The third assumption can be made because every independent set S yields a positive rank divisor of
 // degree n - |S|. Apart from the complete graph, all graphs have an independent set of size at least 2,
 // and therefore have gonality at most n - 2.
 // 
-// Before embarking on a brute force search for the gonality of a graph g, we do some quick tests to
+// Before embarking on a brute force search for the gonality of a graph G, we do some quick tests to
 // see if we can exclude this graph from our search. These tests include:
-//     * test if g has a leave (this is a bit superfluous now, as we only generate graphs of minimum degree 2
+//     * test if G has a leaf (this is a bit superfluous now, as we only generate graphs of minimum degree 2
 //       to begin with);
 //     * use a (randomized) approximation algorithm to find a large independent set S, and see if the
 //       Brill–Noether bound can be met by a divisor of degree n - |S|.
