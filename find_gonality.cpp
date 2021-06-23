@@ -141,6 +141,7 @@ int main(int argc, char* argv[]) {
 	// Parse command-line arguments
 	bool badargs = false;
 	bool arg_g = false;
+	bool arg_h = false;
 	char tmp[30];
 	for (int i = 1; i < argc && !badargs; i++) {
 		unsigned l = strlen(argv[i]);
@@ -148,6 +149,9 @@ int main(int argc, char* argv[]) {
 		if (argv[i][0] == '-') {
 			for (unsigned j = 1; j < l; j++) {
 				switch (argv[i][j]) {
+					case 'h':
+						arg_h = true;
+						break;
 					case 'g':
 						arg_g = true;
 						break;
@@ -187,10 +191,10 @@ int main(int argc, char* argv[]) {
 			badargs = true;
 		}
 	}
-	if (badargs) {
-		cerr << "Invalid argument(s)." << endl;
+	if (arg_h || badargs) {
+		cerr << (badargs ? "Invalid argument(s)." : "Requested help.") << endl;
 		usage();
-		exit(1);
+		exit(badargs ? 1 : 0);
 	}
 	
 	// Read and process input
