@@ -28,13 +28,13 @@ Brill_Noether_geng -h
 
 ## Input formats
 
-The programs `find_gonality` and `subdivision_conjecture` can read two types of input: a `graph6` file or a human-readible “plain” format.
+The programs `find_gonality` and `subdivision_conjecture` can read two types of input: a graph6 file or a human-readible “plain” format.
 The program `Brill_Noether_geng` does not take input.
 
-### The `graph6` input format
-In the `graph6` format, each line in the input should be a `graph6`-encoded graph, as documented in the user guide of [`nauty`](https://pallini.di.uniroma1.it) [MP20].
+### The graph6 input format
+In the graph6 format, each line in the input should be a graph6-encoded graph, as documented in the user guide of [`nauty`](https://pallini.di.uniroma1.it) [MP20].
 The optional header `>>graph6<<` at the beginning of the file is currently not supported and should be omitted.
-Furthermore, note that the `graph6` format does not support parallel edges.
+Furthermore, note that the graph6 format does not support parallel edges.
 The similar `sparse6` format does, but is currently not supported.
 For parallel edges, the plain format must be used.
 
@@ -42,13 +42,18 @@ For parallel edges, the plain format must be used.
 The plain input format consists of any number of blocks of the following form:
    * One line indicating the name of the graph;
    * One line with two integers N and M, indicating the number of vertices and edges;
-   * M lines containing two integers v<sub>i</sub> and w<sub>i</sub> (0 ≤ v<sub>i</sub>, w<sub>i</sub> < N), indicating that there is an (undirected) edge between v<sub>i</sub> and w<sub>i</sub>.
+   * M lines containing two integers v<sub>i</sub> and w<sub>i</sub> (0 ≤ v<sub>i</sub>, w<sub>i</sub> < N; v<sub>i</sub> ≠ w<sub>i</sub>), indicating that there is an (undirected) edge between v<sub>i</sub> and w<sub>i</sub>.
 
 Empty lines in the input will be ignored.
 
 ### Converting between the two input formats
-To convert between the two input formats, we have included the auxiliary programs `convert_to_graph6` and `convert_from_graph6`.
-
+Converting between the two input formats can be done using the auxiliary programs `convert_to_graph6` and `convert_from_graph6`.
+Please note that the graph6 input format does not support parallel edges.
+If some of the graphs in the plain input file `examples.in` contain parallel edges, it is only possible to save the k-subdivision of these graphs in graph6 format, like so:
+```
+convert_to_graph6 k < examples.in > examples-subdivided.g6
+```
+where `k` is an integer between 2 and the compile-time constant `MAX_PARTS_PER_EDGE` (default: 10).
 
 ## Troubleshooting
 
