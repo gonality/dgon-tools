@@ -10,11 +10,49 @@ The suite consists of the following programs:
    * `find_gonality`: reads a number of graphs from the input, and computes the gonality of the k-regular subdivision of each of these graphs;
    * `subdivision_conjecture`: reads a number of graphs from the input, and tests the subdivision and Brill–Noether conjectures for these graphs;
    * `Brill_Noether_geng`: test the Brill–Noether conjecture for all simple, connected graphs on N vertices.
-      This program is compiled and linked against the auxiliary program `geng` from the `gtools` suite packaged with [`nauty`](https://pallini.di.uniroma1.it) [MP20], which must be downloaded separately.
+      This program is compiled and linked against the auxiliary program `geng` from the `gtools` suite packaged with [`nauty`](https://pallini.di.uniroma1.it) [MP20], which must be downloaded separately;
+   * `convert_to_graph6`: convert a file from the plain input format to graph6 format (see section "Input formats" below);
+   * `convert_from_graph6`: convert a file from the graph6 format to the plain input format (see section "Input formats" below).
 
-Note: although the tasks of these programs overlap, the more specific programs are (much) faster.
+Note: although the tasks of the first three programs overlap, the more specific programs are (much) faster.
 In particular, `subdivision_conjecture` with the `-f` flag set only searches for a positive rank divisor of degree dgon(G) - 1 on the k-subdivision of G, which is faster than computing the gonality of the subdivision.
 Likewise, `Brill_Noether_geng` uses several heuristics to immediately discard graphs with too many edges (enough so that the Brill–Noether bound is trivially met) and graphs with a large enough independent set, making it several orders of magnitude faster than `find_gonality` and `subdivision_conjecture` for the task at hand.
+
+
+## How to compile
+
+All code adheres to the C++11 standard. The program `Brill_Noether_geng` also requires code from [`nauty`](https://pallini.di.uniroma1.it) [MP20], which must be downloaded separately.
+
+### Compiling all programs except `Brill_Noether_geng`
+
+The programs `find_gonality`, `subdivision_conjecture`, `convert_to_graph6` and `convert_from_graph6` do not depend on any external libraries, and can therefore be compiled using any compliant C++ compiler. For convenience, we have included a Makefile. If your system supports makefiles, simply download the code to the directory `dgon-tools`, then open a terminal and run
+```
+cd dgon-tools/
+make
+```
+This will compile the programs using your system's default C++ compiler. A different compiler can be specified as an argument to `make`, for instance:
+```
+# compile using clang++ instead of the default C++ compiler
+make CXX=clang++
+```
+
+If the makefile does not work, try to open the code in your favourite IDE and compile it there. Make sure to set the compiler to the highest optimization setting, as this makes the program much faster. For instance, when using g++ (from the GNU Compiler Collection), make sure to specify `-O3`, like so:
+```
+g++ --std=c++11 -Wall -Wextra -pedantic -ggdb -O3 -march=native  find_gonality.cpp -o find_gonality
+```
+
+### Compiling `Brill_Noether_geng`
+
+The program `Brill_Noether_conjecture` should be linked against code from [`nauty`](https://pallini.di.uniroma1.it) [MP20].
+Steps to compile this program:
+
+   1. Download and compile the code from `nauty`. Please refer to [MP20] for instructions on obtaining and compiling `nauty`.
+   2. Edit the file `Brill_Noether_Geng/Makefile`, and change the variable `NAUTY_DIR` to the directory containing the files from `nauty`.
+   3. Open a terminal and run
+      ```
+      cd dgon-tools/Brill_Noether_geng/
+      make
+      ```
 
 
 ## Command-line options
