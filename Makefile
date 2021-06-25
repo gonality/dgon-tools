@@ -3,19 +3,23 @@
 # a C++ compiler installed, and you may need to adjust the CXXFLAGS given below (not sure if these
 # are compiler-specific).
 
-CXXFLAGS += -Wall -Wextra -ggdb -O3
+CXXFLAGS += --std=c++11 -Wall -Wextra -pedantic -ggdb -O3 -march=native
 CPP_TARGETS=convert_from_graph6 convert_to_graph6 find_gonality subdivision_conjecture
 
 # default target:
 all: ${CPP_TARGETS}
 
-convert_from_graph6: graphs.h graph6.h
+convert_from_graph6: convert_from_graph6.cpp graphs.h graph6.h
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $@.cpp -o $@
 
-convert_to_graph6: graphs.h subdivisions.h graph6.h graph_io.h
+convert_to_graph6: convert_to_graph6.cpp graphs.h subdivisions.h graph6.h graph_io.h
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $@.cpp -o $@
 
-find_gonality: divisors.h graphs.h subdivisions.h graph_io.h
+find_gonality: find_gonality.cpp divisors.h graphs.h subdivisions.h graph_io.h
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $@.cpp -o $@
 
-subdivision_conjecture: divisors.h graphs.h subdivisions.h graph6.h
+subdivision_conjecture: subdivision_conjecture.cpp divisors.h graphs.h subdivisions.h graph6.h
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $@.cpp -o $@
 
 
 # Create phony target for clean (see [1]).
