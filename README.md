@@ -36,9 +36,13 @@ This will compile the programs using your system's default C++ compiler. A diffe
 make CXX=clang++
 ```
 
-If the makefile does not work, try to open the code in your favourite IDE and compile it there. Make sure to set the compiler to the highest optimization setting, as this makes the program much faster. For instance, when using g++ (from the GNU Compiler Collection), make sure to specify `-O3`, like so:
+If the makefile does not work, try to open the code in your favourite IDE and compile it there. Make sure to set the compiler to the highest optimization setting, as this makes the program much faster. For instance, when using g++ (from the GNU Compiler Collection), make sure to specify at least `-O2`, like so:
 ```
-g++ --std=c++11 -Wall -Wextra -pedantic -ggdb -O3 -march=native  find_gonality.cpp -o find_gonality
+g++ --std=c++11 -Wall -Wextra -pedantic -ggdb -O2  find_gonality.cpp -o find_gonality
+```
+Likewise, when using Visual Studio (on Windows), make sure to specify at least `/O2`, like so:
+```
+cl /O2 find_gonality.cpp
 ```
 
 ### Compiling `Brill_Noether_geng`
