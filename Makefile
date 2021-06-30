@@ -3,7 +3,7 @@
 # a C++ compiler installed, and you may need to adjust the CXXFLAGS given below (not sure if these
 # are compiler-specific).
 
-CXXFLAGS += --std=c++11 -Wall -Wextra -pedantic -ggdb -O3 -march=native
+CXXFLAGS += --std=c++11 -Wall -Wextra -pedantic -ggdb -O2
 CPP_TARGETS=convert_from_graph6 convert_to_graph6 find_gonality subdivision_conjecture
 
 # default target:
