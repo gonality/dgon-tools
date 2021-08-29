@@ -27,12 +27,12 @@ struct my_graph {
 	std::string graph_name;
 	std::vector<int> neighbours[MAX_N];
 	my_graph() : n(0) {}
-	my_graph(int _n) {
+	my_graph(int _n) : n(0) {
 		setN(_n);
 	}
 	void setN(int _n) {
+		assert(_n >= 0 && _n >= n && _n <= MAX_N);
 		n = _n;
-		assert(n >= 0 && n <= MAX_N);
 	}
 	void add_edge(int a, int b) {
 		assert(a >= 0 && a < n);
@@ -40,10 +40,6 @@ struct my_graph {
 		assert(a != b);
 		neighbours[a].push_back(b);
 		neighbours[b].push_back(a);
-	}
-	const std::vector<int>& operator[](int i) const {
-		assert(i >= 0 && i < n);
-		return neighbours[i];
 	}
 	int count_edges() const {
 		int ret = 0;

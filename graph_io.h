@@ -28,9 +28,10 @@
 std::vector<std::string> __all_lines;
 my_graph __G;
 
-void __parse_next_graph(size_t& pos, void (*process_function)(const my_graph& G)) {
+void __parse_next_graph(size_t& pos, void (*process_function)(const my_graph&)) {
 	int n, m;
 	assert(pos <= __all_lines.size() - 2); // at least 2 lines of input remaining
+	__G.init();
 	__G.graph_name = __all_lines[pos];
 	pos++;
 	assert(sscanf(__all_lines[pos].c_str(), "%d %d", &n, &m) == 2);
@@ -52,7 +53,7 @@ void __parse_next_graph(size_t& pos, void (*process_function)(const my_graph& G)
 	__G.init();
 }
 
-void read_plain_input_and_process(std::istream& is, void (*process_function)(const my_graph& g)) {
+void read_plain_input_and_process(std::istream& is, void (*process_function)(const my_graph&)) {
 	std::string tmp_str;
 	__G.init();
 	while (std::getline(is, tmp_str)) {
