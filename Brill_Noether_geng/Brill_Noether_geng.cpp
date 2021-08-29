@@ -1,4 +1,4 @@
-// This program combines nauty's graph generator "geng" with my own divisor code base.
+// This program combines nauty's graph generator "geng" with the dgon-tools codebase.
 // Given an integer n, it will generate all simple graphs on n vertices and test whether their gonality
 // satisfies the Brill–Noether bound.
 // 
@@ -37,10 +37,10 @@ const int MAX_PARTS_PER_EDGE = 1;  // edges may be subdivided into at most 10 pa
 # endif
 
 #include "gtools.h"   // from nauty
-#include "graphs.h"   // from my codebase
-#include "graph6.h"   // from my codebase
-#include "divisors.h" // from my codebase
-#include "approximate_independent_sets.h" // from my codebase
+#include "graphs.h"   // from dgon-tools codebase
+#include "graph6.h"   // from dgon-tools codebase
+#include "divisors.h" // from dgon-tools codebase
+#include "approximate_independent_sets.h" // from dgon-tools codebase
 #include <cstdlib>
 #include <iostream>
 #include <cassert>

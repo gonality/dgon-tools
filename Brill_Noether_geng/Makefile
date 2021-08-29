@@ -1,10 +1,10 @@
 # Custom makefile to integrate nauty's graph generator "geng" in the Brill–Noether tests.
 # 
 # Please change NAUTY_DIR to the directory containing nauty, and CODEBASE_DIR to the
-# directory containing my header files "graphs.h", "divisors.h", "graph6.h", and
-# "approximate_independent_sets.h".
+# directory containing the dgon-tools header files "graphs.h", "divisors.h", "graph6.h",
+# and "approximate_independent_sets.h".
 
-NAUTY_DIR=~/Downloads/nauty27r1
+NAUTY_DIR=../../nauty27r1
 CODEBASE_DIR=../
 
 CFLAGS += -O4 -march=native -DMAXN=32 -DWORDSIZE=64 -DOUTPROC=myoutproc -DGENG_MAIN=geng_main -I"${NAUTY_DIR}/" -I"${CODEBASE_DIR}"
