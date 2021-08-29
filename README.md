@@ -25,25 +25,26 @@ All code adheres to the C++11 standard. The program `Brill_Noether_geng` also re
 
 ### Compiling all programs except `Brill_Noether_geng`
 
-The programs `find_gonality`, `subdivision_conjecture`, `convert_to_graph6` and `convert_from_graph6` do not depend on any external libraries, and can therefore be compiled using any compliant C++ compiler. For convenience, we have included a Makefile. If your system supports makefiles, simply download the code to the directory `dgon-tools`, then open a terminal and run
+The programs `find_gonality`, `subdivision_conjecture`, `convert_to_graph6` and `convert_from_graph6` do not depend on any external libraries, and can easily be compiled using any compliant C++ compiler. For convenience, we have included a Makefile. If your system supports makefiles, simply download the code to the directory `dgon-tools`, then open a terminal and run
 ```
 cd dgon-tools/
 make
 ```
-This will compile the programs using your system's default C++ compiler. A different compiler can be specified as an argument to `make`, for instance:
-```
-# compile using clang++ instead of the default C++ compiler
-make CXX=clang++
-```
+Alternatively, if the makefile does not work, open the code in your favourite IDE and compile it there.
+**Make sure to set the right optimization flags** (see below).
 
-If the makefile does not work, try to open the code in your favourite IDE and compile it there. Make sure to set the compiler to the highest optimization setting, as this makes the program much faster. For instance, when using g++ (from the GNU Compiler Collection), make sure to specify at least `-O2`, like so:
+Note: we have not yet succeeded in compiling the programs using the Visual Studio IDE on Windows.
+(We're not very familiar with it, and we don't know which settings to change to make it accept standard C++ code instead of Microsoft's own dialect.)
+For now, we recommend that you open the Visual Studio Developer Command Prompt, navigate to the right directory, and compile the programs one by one, like so:
 ```
-g++ --std=c++11 -Wall -Wextra -pedantic -ggdb -O2  find_gonality.cpp -o find_gonality
+CD dgon-tools
+CL /O2 find_gonality.cpp
+CL /O2 subdivision_conjecture.cpp
+CL /O2 convert_to_graph6.cpp
+CL /O2 convert_from_graph6.cpp
 ```
-Likewise, when using Visual Studio (on Windows), make sure to specify at least `/O2`, like so:
-```
-cl /O2 find_gonality.cpp
-```
+Note the `/O2` flags for speed; see the section on optimization settings below.
+
 
 ### Compiling `Brill_Noether_geng`
 
@@ -59,6 +60,35 @@ Steps to compile this program:
       ```
 
 
+### Optimization settings (getting the fastest possible program)
+The relatively high speed of these programs is in part due to the optimization built into modern C++ compilers.
+We suspect that pre-compiled implementations in another language might be just as fast, provided that similar optimization is available.
+
+When compiling the program manually (without using the Makefile), make sure to set the compiler to the highest optimization setting.
+For instance, when using g++ (from the GNU Compiler Collection), make sure to specify at least `-O2`, like so:
+```
+# compile the program find_gonality (manually, using g++)
+g++ --std=c++11 -Wall -Wextra -pedantic -ggdb -O2  find_gonality.cpp -o find_gonality
+```
+Although g++ has a reputation for delivering faster code, experimental results indicate that `find_gonality` can become up to 10 percent faster when compiled with clang++ instead of g++. To do so without making clang your default compiler, use:
+```
+# compile the Makefile, using clang++ instead of the default C++ compiler
+make CXX=clang++
+```
+or:
+```
+# compile the program find_gonality (manually, using clang++)
+clang++ --std=c++11 -Wall -Wextra -pedantic -ggdb -O2  find_gonality.cpp -o find_gonality
+```
+When using Visual Studio (on Windows), make sure to specify `/O2`, like so:
+```
+REM compile the program find_gonality (manually, using Visual Studio Developer Command Prompt)
+CL /O2 find_gonality.cpp
+```
+It's probably also possible to set this flag somewhere in the Visual Studio IDE, if you manage to get the code to compile from the IDE in the first place.
+
+
+
 ## Command-line options
 For an overview of the command line options of each of the programs, run
 ```
@@ -70,8 +100,13 @@ Brill_Noether_geng -h
 
 ## Input formats
 
+All programs read their input from the [standard input](https://en.wikipedia.org/wiki/Standard_input). To read input from a file, use [redirection](https://en.wikipedia.org/wiki/Redirection_(computing)), like so:
+```
+find_gonality < input_file.in
+```
 The programs `find_gonality` and `subdivision_conjecture` can read two types of input: a graph6 file or a human-readible “plain” format.
 The program `Brill_Noether_geng` does not take input.
+
 
 ### The graph6 input format
 In the graph6 format, each line in the input should be a graph6-encoded graph, as documented in the user guide of [`nauty`](https://pallini.di.uniroma1.it) [MP20].
